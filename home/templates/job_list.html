@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+
+    body, h1 {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .add-job-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-left: 20px;
+    }
+    
+    .add-job-button:hover {
+        background-color: #0056b3;
+    }
+    
+    main {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .job-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .job-item {
+        flex-basis: calc(33.33% - 20px);
+        margin-right: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+    
+    .job-image img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .job-details h2 {
+        font-size: 24px;
+        margin-top: 0;
+    }
+    
+    .job-details .company,
+    .job-details .location,
+    .job-details .expiry,
+    .job-details .category {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+    
+    .job-details .description,
+    .job-details .how-to-apply {
+        margin-top: 20px;
+    }
+   </style>
+    <title>Job Listings</title>
+</head>
+<body>
+    <header>
+        <h1>Job Listings</h1>
+        <a href="{% url 'add_job' %}" class="add-job-button">Add Job</a>
+    </header>
+
+    <main>
+        <div class="job-list">
+            {% for job in jobs %}
+            <div class="job-item">
+                <div class="job-image">
+                    <img src="{{ job.image.url }}" width="150" height="150" alt="{{ job.job_title }}">
+                </div>
+                <div class="job-details">
+                    <h2>{{ job.job_title }}</h2>
+                    <p class="company">{{ job.company_name }}</p>
+                    <p class="location">{{ job.location }}</p>
+                    <p class="expiry">Expiry Date: {{ job.expiry_on }}</p>
+                    <p class="category">Category: {{ job.cat }}</p>
+                   
+                </div>
+            </div>
+            {% empty %}
+            <p>No jobs available.</p>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
